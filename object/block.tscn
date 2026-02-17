@@ -16,6 +16,7 @@ shader = ExtResource("2_fpxxo")
 shader_parameter/texture_top = ExtResource("5_rsxso")
 shader_parameter/texture_side = ExtResource("4_poig7")
 shader_parameter/texture_bottom = ExtResource("3_fpxxo")
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rsxso"]
 render_priority = 0
@@ -23,6 +24,7 @@ shader = ExtResource("2_fpxxo")
 shader_parameter/texture_top = ExtResource("5_rsxso")
 shader_parameter/texture_side = ExtResource("4_poig7")
 shader_parameter/texture_bottom = ExtResource("3_fpxxo")
+shader_parameter/emission_energy = 0.0
 
 [node name="block" type="Node3D" unique_id=775472855]
 script = ExtResource("1_fpxxo")
@@ -41,6 +43,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_poig7")
 
 [node name="掉落" type="Node3D" parent="." unique_id=439194035]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+visible = false
 
 [node name="Area3D" type="Area3D" parent="掉落" unique_id=1282522778]
 
