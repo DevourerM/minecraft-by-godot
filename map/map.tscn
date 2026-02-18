@@ -11,7 +11,8 @@
 
 [node name="WorldGenerator" type="Node" parent="." unique_id=374718604]
 script = ExtResource("2_a0dt8")
-generate_map = true
+render_distance = 2
+generate_preview = true
 
 [node name="Step_Terrain" type="Node" parent="WorldGenerator" unique_id=153061962]
 script = ExtResource("3_4hjbm")
