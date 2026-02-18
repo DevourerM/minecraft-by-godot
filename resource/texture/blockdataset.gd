@@ -4,6 +4,14 @@ extends Node
 var texture_path = "res://resource/texture/blocks/"
 
 var block_registry = {
+	"air": {
+		"top": "structure_air.png",
+		"side": "structure_air.png",
+		"bottom": "structure_air.png",
+		"hardness": 0,
+		"is_breakable": false,
+		"brightness": 0.0   
+	},
 	"dirt": {
 		"top": "dirt.png",
 		"side": "dirt.png",
@@ -28,6 +36,30 @@ var block_registry = {
 		"hardness": 1,
 		"is_breakable": true,
 		"brightness": 0.2
+	},
+	"iron": {
+		"top": "iron_ore.png",
+		"side": "iron_ore.png",
+		"bottom": "iron_ore.png",
+		"hardness": 1,
+		"is_breakable": true,
+		"brightness": 0
+	},
+	"lapis": {
+		"top": "lapis_ore.png",
+		"side": "lapis_ore.png",
+		"bottom": "lapis_ore.png",
+		"hardness": 1,
+		"is_breakable": true,
+		"brightness": 0
+	},
+	"coal": {
+		"top": "coal_ore.png",
+		"side": "coal_ore.png",
+		"bottom": "coal_ore.png",
+		"hardness": 1,
+		"is_breakable": true,
+		"brightness": 0
 	},
 	"bedrock": {
 		"top": "bedrock.png",

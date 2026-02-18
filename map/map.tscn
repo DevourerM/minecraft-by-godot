@@ -1,12 +1,23 @@
 [gd_scene format=3 uid="uid://c68ngki4ykojb"]
 
-[ext_resource type="Script" uid="uid://b1jl7rc44npdt" path="res://map/map.gd" id="1_hgrid"]
+[ext_resource type="Script" uid="uid://btfb2y338nupk" path="res://map/world_generator.gd" id="2_a0dt8"]
+[ext_resource type="Script" uid="uid://dkvusjkk5hqw6" path="res://map/step_terrain.gd" id="3_4hjbm"]
+[ext_resource type="Script" uid="uid://bfsrnbo3yx8cl" path="res://map/step_ores.gd" id="4_lgq1i"]
+[ext_resource type="Script" uid="uid://bdng4bm4ap4j7" path="res://map/step_caves.gd" id="5_kffv2"]
 
 [node name="map" type="Node3D" unique_id=680260545]
-script = ExtResource("1_hgrid")
-surface_amplitude = 10.0
-surface_frequency = 0.05
-ore_frequency = 0.1
-ore_threshold = 0.45
 
-[node name="area" type="Node3D" parent="." unique_id=1493171611]
+[node name="Area" type="Node3D" parent="." unique_id=1493171611]
+
+[node name="WorldGenerator" type="Node" parent="." unique_id=374718604]
+script = ExtResource("2_a0dt8")
+generate_map = true
+
+[node name="Step_Terrain" type="Node" parent="WorldGenerator" unique_id=153061962]
+script = ExtResource("3_4hjbm")
+
+[node name="Step_Ores" type="Node" parent="WorldGenerator" unique_id=978054403]
+script = ExtResource("4_lgq1i")
+
+[node name="Step_Caves" type="Node" parent="WorldGenerator" unique_id=1000240801]
+script = ExtResource("5_kffv2")
