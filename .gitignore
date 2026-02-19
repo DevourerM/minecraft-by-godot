@@ -5,6 +5,6 @@
 #resource(contain texture from minecraft)
 /resource/texture/blocks
 /resource/texture/environment
-
+/resource/texture/entity
 
 /LICENSE

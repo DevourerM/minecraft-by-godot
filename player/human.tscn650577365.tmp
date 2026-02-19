@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://d14wj50mvoexc"]
+
+[ext_resource type="Script" uid="uid://dw06jcqkt7mtp" path="res://player/human.gd" id="1_br5hc"]
+[ext_resource type="PackedScene" uid="uid://bcyvi7vsmedh3" path="res://player/steve.tscn" id="1_bvoql"]
+[ext_resource type="Script" uid="uid://c2etx6086bk4m" path="res://player/state_machine.gd" id="3_uuleo"]
+[ext_resource type="Script" uid="uid://bw5cf84ptkx0u" path="res://player/idle.gd" id="4_icdvv"]
+[ext_resource type="Script" uid="uid://dpw0m2phj2m5d" path="res://player/walk.gd" id="5_1ou5u"]
+[ext_resource type="Script" uid="uid://bpu27lkkn1obi" path="res://player/sprint.gd" id="6_54xnq"]
+[ext_resource type="Script" uid="uid://bqgyj6fyytvt4" path="res://player/fly.gd" id="7_vgf6f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a24ds"]
+size = Vector3(0.9, 1.8, 0.5)
+
+[node name="player" type="CharacterBody3D" unique_id=1740865316 groups=["player"]]
+script = ExtResource("1_br5hc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1496709789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8987346, 0)
+shape = SubResource("BoxShape3D_a24ds")
+
+[node name="Head" type="Node3D" parent="." unique_id=1219939046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CameraArm" type="SpringArm3D" parent="Head" unique_id=1685618318]
+collision_mask = 0
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="Head/CameraArm" unique_id=1635694149]
+
+[node name="InteractRay" type="RayCast3D" parent="Head" unique_id=193703999]
+target_position = Vector3(0, 0, 5)
+
+[node name="StateMachine" type="Node" parent="." unique_id=1788731670]
+script = ExtResource("3_uuleo")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1114861516]
+script = ExtResource("4_icdvv")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=2089718822]
+script = ExtResource("5_1ou5u")
+
+[node name="Sprint" type="Node" parent="StateMachine" unique_id=1591931429]
+script = ExtResource("6_54xnq")
+
+[node name="Fly" type="Node" parent="StateMachine" unique_id=48492142]
+script = ExtResource("7_vgf6f")
+
+[node name="steve" parent="." unique_id=470747735 instance=ExtResource("1_bvoql")]
