@@ -18,16 +18,9 @@ shader_parameter/texture_side = ExtResource("4_poig7")
 shader_parameter/texture_bottom = ExtResource("3_fpxxo")
 shader_parameter/emission_energy = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rsxso"]
-render_priority = 0
-shader = ExtResource("2_fpxxo")
-shader_parameter/texture_top = ExtResource("5_rsxso")
-shader_parameter/texture_side = ExtResource("4_poig7")
-shader_parameter/texture_bottom = ExtResource("3_fpxxo")
-shader_parameter/emission_energy = 0.0
-
 [node name="block" type="Node3D" unique_id=775472855]
 script = ExtResource("1_fpxxo")
+block_type = "grass"
 block_type = "grass"
 
 [node name="实体" type="Node3D" parent="." unique_id=1097367189]
@@ -40,16 +33,3 @@ shape = SubResource("BoxShape3D_6jsvx")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="实体/StaticBody3D" unique_id=277878309]
 mesh = SubResource("BoxMesh_mm1ad")
 surface_material_override/0 = SubResource("ShaderMaterial_poig7")
-
-[node name="掉落" type="Node3D" parent="." unique_id=439194035]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
-visible = false
-
-[node name="Area3D" type="Area3D" parent="掉落" unique_id=1282522778]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="掉落/Area3D" unique_id=1361270660]
-shape = SubResource("BoxShape3D_6jsvx")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="掉落/Area3D" unique_id=41666679]
-mesh = SubResource("BoxMesh_mm1ad")
-surface_material_override/0 = SubResource("ShaderMaterial_rsxso")

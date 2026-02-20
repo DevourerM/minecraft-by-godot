@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://s77gn7lw5bgh"]
+
+[ext_resource type="PackedScene" uid="uid://c68ngki4ykojb" path="res://map/map.tscn" id="1_syuel"]
+[ext_resource type="PackedScene" uid="uid://b73kfbatjsggy" path="res://world_environment/env.tscn" id="2_65205"]
+[ext_resource type="PackedScene" uid="uid://d14wj50mvoexc" path="res://player/human.tscn" id="3_hrq6i"]
+
+[node name="test" type="Node3D" unique_id=1592946768]
+
+[node name="map" parent="." unique_id=680260545 instance=ExtResource("1_syuel")]
+
+[node name="env" parent="." unique_id=906599354 instance=ExtResource("2_65205")]
+day_length = 300.0
+
+[node name="player" parent="." unique_id=1740865316 instance=ExtResource("3_hrq6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)

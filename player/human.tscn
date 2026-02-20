@@ -2,67 +2,17 @@
 
 [ext_resource type="Script" uid="uid://dw06jcqkt7mtp" path="res://player/human.gd" id="1_br5hc"]
 [ext_resource type="PackedScene" uid="uid://bcyvi7vsmedh3" path="res://player/steve.tscn" id="1_bvoql"]
+[ext_resource type="Script" uid="uid://7qrtid8dgm1w" path="res://player/head.gd" id="2_icdvv"]
+[ext_resource type="Texture2D" uid="uid://bp6gyhey8jum4" path="res://resource/texture/ui/anvil-plus.png" id="3_uuleo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a24ds"]
-size = Vector3(0.9, 1.8, 0.5)
+size = Vector3(0.5, 1.8, 0.5)
 
-[sub_resource type="GDScript" id="GDScript_3kgn4"]
-script/source = "extends Node3D
+[sub_resource type="Environment" id="Environment_3kgn4"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
 
-@export var mouse_sensitivity := 0.003
-enum CameraMode { FIRST_PERSON, THIRD_PERSON_BACK, THIRD_PERSON_FRONT }
-var current_cam_mode = CameraMode.FIRST_PERSON
-
-@onready var camera_arm = $CameraArm3D
-@onready var player = get_parent()
-@onready var steve = $\"../steve\"
-
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	_update_camera_visuals()
-
-# 【关键修改】：从 _unhandled_input 改为 _input，强制接收鼠标，无视 UI 遮挡！
-func _input(event):
-	# 1. 鼠标锁定与释放
-	if event.is_action_pressed(\"ui_cancel\"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-	# 2. 视角切换
-	if event.is_action_pressed(\"toggle_camera\"):
-		current_cam_mode = (current_cam_mode + 1) % 3 as CameraMode
-		_update_camera_visuals()
-
-	# 3. 鼠标转头逻辑 + 打印输出测试
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		# 左右转动玩家
-		player.rotate_y(-event.relative.x * mouse_sensitivity)
-		# 上下转动头部
-		self.rotate_x(-event.relative.y * mouse_sensitivity)
-		self.rotation.x = clamp(self.rotation.x, deg_to_rad(-85), deg_to_rad(85))
-		
-		# --- [你要求的打印调试] ---
-		# 如果控制台疯狂刷这句话，说明代码完全运行了，是模型本身被卡住了！
-		print(\"[转头测试] 身体Y轴: %.1f 度 | 头部X轴: %.1f 度\" % [rad_to_deg(player.rotation.y), rad_to_deg(self.rotation.x)])
-
-func _update_camera_visuals():
-	if not camera_arm or not steve: return
-	match current_cam_mode:
-		CameraMode.FIRST_PERSON:
-			camera_arm.spring_length = 0.0
-			camera_arm.rotation_degrees.y = 0
-			steve.hide()
-		CameraMode.THIRD_PERSON_BACK:
-			camera_arm.spring_length = 4.0
-			camera_arm.rotation_degrees.y = 0
-			steve.show()
-		CameraMode.THIRD_PERSON_FRONT:
-			camera_arm.spring_length = 4.0
-			camera_arm.rotation_degrees.y = 180
-			steve.show()
-"
+[sub_resource type="BoxMesh" id="BoxMesh_3kgn4"]
 
 [node name="player" type="CharacterBody3D" unique_id=1740865316 groups=["player"]]
 script = ExtResource("1_br5hc")
@@ -73,7 +23,7 @@ shape = SubResource("BoxShape3D_a24ds")
 
 [node name="Head" type="Node3D" parent="." unique_id=1219939046]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-script = SubResource("GDScript_3kgn4")
+script = ExtResource("2_icdvv")
 
 [node name="CameraArm3D" type="SpringArm3D" parent="Head" unique_id=1685618318]
 collision_mask = 0
@@ -82,6 +32,39 @@ spring_length = 4.0
 [node name="Camera3D" type="Camera3D" parent="Head/CameraArm3D" unique_id=1635694149]
 
 [node name="InteractRay" type="RayCast3D" parent="Head" unique_id=193703999]
-target_position = Vector3(0, 0, 5)
+target_position = Vector3(0, 0, -5)
 
 [node name="steve" parent="." unique_id=470747735 instance=ExtResource("1_bvoql")]
+transform = Transform3D(-1.45, 0, -1.2676303e-07, 0, 1.45, 0, 1.2676303e-07, 0, -1.45, 0, 0, 0)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=251557537]
+
+[node name="Hotbar" type="SubViewportContainer" parent="UI" unique_id=1350627521]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SubViewport" type="SubViewport" parent="UI/Hotbar" unique_id=297082285]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(120, 120)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="UI/Hotbar/SubViewport" unique_id=361691205]
+transform = Transform3D(0.70710677, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.70710677, -0.35355338, 0.6123724, 1.5, 1.2, 1.5)
+environment = SubResource("Environment_3kgn4")
+
+[node name="PreviewBlock" type="MeshInstance3D" parent="UI/Hotbar/SubViewport" unique_id=579384260]
+mesh = SubResource("BoxMesh_3kgn4")
+
+[node name="Sprite2D" type="Sprite2D" parent="UI" unique_id=2041224380]
+position = Vector2(576, 324)
+scale = Vector2(2, 2)
+texture = ExtResource("3_uuleo")

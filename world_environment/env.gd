@@ -61,9 +61,9 @@ func _setup_fast_transition_resources():
 		sun_color_gradient.remove_point(0)
 	
 	sun_color_gradient.add_point(0.0, Color(1, 1, 1))      # 正午：纯白
-	sun_color_gradient.add_point(0.20, Color(1, 0.9, 0.7)) # 下午：稍微暖色
+	sun_color_gradient.add_point(0.22, Color(1, 0.9, 0.7)) # 下午：稍微暖色
 	sun_color_gradient.add_point(0.25, Color(1, 0.5, 0.2)) # 地平线：金橙
-	sun_color_gradient.add_point(0.33, Color(0.1, 0.15, 0.4)) # 30度后：进入深蓝夜色
+	sun_color_gradient.add_point(0.30, Color(0.0, 0.0, 0.0, 1.0)) # 30度后：进入深蓝夜色
 	sun_color_gradient.add_point(0.67, Color(0.2, 0.1, 0.4))  # 准备日出：深紫
 	sun_color_gradient.add_point(0.75, Color(1, 0.4, 0.2)) # 日出地平线：橙红
 	sun_color_gradient.add_point(0.80, Color(1, 1, 1))      # 升起后迅速回白
